@@ -3,10 +3,15 @@ package APITests;
 import apiLayers.Orders;
 import org.testng.annotations.Test;
 
-public class ProductsTest extends BaseTest {
+public class OrdersTest extends BaseTest {
 
     @Test
-    public void testGetProducts(){
+    public void testGetOrders(){
         orders.getOrders();
+    }
+
+    @Test
+    public void testCreateOrders(){
+        orders.createOrders();
     }
 }
