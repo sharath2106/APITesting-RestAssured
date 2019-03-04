@@ -12,8 +12,8 @@ docker
 2. cd api-demo-hiring-workshop
 3. docker-compose up
 
-## Framework
-4. Clone the repository - https://github.com/itsrunning/APITestingWithRestAssured
-5. cd APITestingWithRestAssured
-6. Run Maven build - mvn build
-7. Run Maven test - mvn clean test
+## Automation Framework
+1. Clone the repository - https://github.com/itsrunning/APITestingWithRestAssured
+2. cd APITestingWithRestAssured
+3. Run Maven build - mvn build
+4. Run Maven test - mvn clean test
