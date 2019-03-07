@@ -2,9 +2,9 @@ package apiLayers;
 
 public class Products extends APIFactory {
 
-    public void getProducts() {
+    public String getProducts() {
 
-        makeGetCallAndReturnResponse(apiRoutes.getProducts());
+       return makeGetCallAndReturnResponseWithToken(apiRoutes.getProducts());
 
     }
 }

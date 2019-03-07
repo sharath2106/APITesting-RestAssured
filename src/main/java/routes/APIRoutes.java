@@ -1,13 +1,13 @@
 package routes;
 
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import utilities.Utility;
 
 public class APIRoutes {
 
 
-
-    public static String baseURL = "http://localhost:3000";
+    //    private static String baseURL = "http://localhost:3000";
+    private Utility utility = new Utility();
+    private String baseURL = utility.getPropertyValue("API_URI");
     private String login;
     private String signup;
     private String products;
@@ -15,6 +15,16 @@ public class APIRoutes {
     private String createProduct;
     private String createOrder;
     private String getSingleProduct;
+
+    public String getDeleteOrder() {
+        return deleteOrder;
+    }
+
+    public void setDeleteOrder(String deleteOrder) {
+        this.deleteOrder = deleteOrder;
+    }
+
+    private String deleteOrder;
 
     public APIRoutes() {
         setLogin();
@@ -26,13 +36,12 @@ public class APIRoutes {
         setCreateOrder();
     }
 
-
     public String getLogin() {
         return login;
     }
 
     public void setLogin() {
-        this.login = baseURL +"/user/login";
+        this.login = baseURL + "/user/login";
     }
 
     public String getSignup() {
@@ -40,7 +49,7 @@ public class APIRoutes {
     }
 
     public void setSignup() {
-        this.signup = baseURL +"/user/signup";
+        this.signup = baseURL + "/user/signup";
     }
 
 
@@ -49,7 +58,7 @@ public class APIRoutes {
     }
 
     public void setProducts() {
-        this.products = baseURL+"/products";
+        this.products = baseURL + "/products/";
     }
 
     public String getOrders() {
@@ -57,7 +66,7 @@ public class APIRoutes {
     }
 
     public void setOrders() {
-        this.orders = baseURL+"/orders";
+        this.orders = baseURL + "/orders/";
     }
 
     public String getCreateProduct() {
@@ -84,7 +93,7 @@ public class APIRoutes {
         this.getSingleProduct = getSingleProduct;
     }
 
-    public void returnProperty(String value){
+    public void returnProperty(String value) {
 
     }
 

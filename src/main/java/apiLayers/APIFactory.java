@@ -1,41 +1,42 @@
 package apiLayers;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import routes.APIRoutes;
+import utilities.Utility;
 
-import static io.restassured.RestAssured.get;
 import static io.restassured.RestAssured.given;
 
 public class APIFactory {
 
     public APIRoutes apiRoutes;
     private static String authToken;
+    public Utility utility;
+
 
     public APIFactory() {
 
         apiRoutes = new APIRoutes();
-
+        utility = new Utility();
     }
 
-    public void signUp(String username, String password) {
+    protected void signUp(String username, String password) {
         JSONObject requestBody = new JSONObject();
         requestBody.put("email", username);
         requestBody.put("password", password);
 
-        makePostCallAndReturnResponse(apiRoutes.getSignup(), requestBody);
+        makePostCallAndReturnResponseWithToken(apiRoutes.getSignup(), requestBody);
     }
 
-    public void login(String username, String password) throws ParseException {
+    protected void login(String username, String password) throws ParseException {
         JSONObject requestBody = new JSONObject();
         requestBody.put("email", username);
         requestBody.put("password", password);
 
-        String fetchTokenFromResponse = makePostCallAndReturnResponse(apiRoutes.getLogin(), requestBody);
+        String fetchTokenFromResponse = makePostCallAndReturnResponseWithToken(apiRoutes.getLogin(), requestBody);
 
         JSONParser jsonParser = new JSONParser();
         JSONObject jsonObject = (JSONObject) jsonParser.parse(fetchTokenFromResponse);
@@ -44,17 +45,7 @@ public class APIFactory {
 
     }
 
-    protected String makeGetCallAndReturnResponse(String URI) {
-
-        RestAssured.baseURI = URI;
-        Response response = given()
-                .when()
-                .get();
-
-        return response.prettyPrint();
-    }
-
-    protected String makeGetCallAndReturnResponseWithToken(String URI) {
+    String makeGetCallAndReturnResponseWithToken(String URI) {
 
         RestAssured.baseURI = URI;
         Response response = given()
@@ -65,19 +56,7 @@ public class APIFactory {
         return response.prettyPrint();
     }
 
-    protected String makePostCallAndReturnResponse(String URI, JSONObject requestBody) {
-
-        RestAssured.baseURI = URI;
-        Response response = given()
-                .when()
-                .header("Content-Type", "application/json")
-                .body(requestBody)
-                .post();
-
-        return response.getBody().asString();
-    }
-
-    protected String makePostCallAndReturnResponseWithToken(String URI, JSONObject requestBody) {
+    String makePostCallAndReturnResponseWithToken(String URI, JSONObject requestBody) {
 
         RestAssured.baseURI = URI;
         Response response = given()
@@ -91,15 +70,14 @@ public class APIFactory {
         return response.getBody().asString();
     }
 
-    protected String makePutCallAndReturnResponseWithToken(String URI, JSONObject requestBody) {
+    protected String makeDeleteCallAndReturnResponseWithToken(String URI) {
 
         RestAssured.baseURI = URI;
         Response response = given()
                 .when()
                 .header("Content-Type", "application/json")
                 .header("Authorization", authToken)
-                .body(requestBody)
-                .put();
+                .delete();
 
         return response.getBody().asString();
     }
